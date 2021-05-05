@@ -1,14 +1,12 @@
 package com.udacity.webcrawler;
 
-import java.util.Comparator;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.PriorityQueue;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Utility class that sorts the map of word counts.
  *
- * <p>TODO: Reimplement the sort() method using only the Stream API and lambdas and/or method
+ * <p>DONE: Reimplement the sort() method using only the Stream API and lambdas and/or method
  *          references.
  */
 final class WordCounts {
@@ -18,7 +16,7 @@ final class WordCounts {
    * to the provided {@link WordCountComparator}, and includes only the top
    * {@param popluarWordCount} words and counts.
    *
-   * <p>TODO: Reimplement this method using only the Stream API and lambdas and/or method
+   * <p>DONE: Reimplement this method using only the Stream API and lambdas and/or method
    *          references.
    *
    * @param wordCounts       the unsorted map of word counts.
@@ -27,17 +25,19 @@ final class WordCounts {
    */
   static Map<String, Integer> sort(Map<String, Integer> wordCounts, int popularWordCount) {
 
-    // TODO: Reimplement this method using only the Stream API and lambdas and/or method references.
-
-    PriorityQueue<Map.Entry<String, Integer>> sortedCounts =
-        new PriorityQueue<>(wordCounts.size(), new WordCountComparator());
-    sortedCounts.addAll(wordCounts.entrySet());
+    // DONE: Reimplement this method using only the Stream API and lambdas and/or method references.
     Map<String, Integer> topCounts = new LinkedHashMap<>();
-    for (int i = 0; i < Math.min(popularWordCount, wordCounts.size()); i++) {
-      Map.Entry<String, Integer> entry = sortedCounts.poll();
-      topCounts.put(entry.getKey(), entry.getValue());
-    }
+    WordCountComparator wordCountComparator = new WordCountComparator();
+
+    topCounts = wordCounts
+            .entrySet()
+            .stream()
+            .sorted(wordCountComparator)
+            .limit(popularWordCount)
+            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (a,b)->a, LinkedHashMap::new));
+
     return topCounts;
+
   }
 
   /**
@@ -50,7 +50,8 @@ final class WordCounts {
    *   <li>Finally, breaking ties using alphabetical order.</li>
    * </ol>
    */
-  private static final class WordCountComparator implements Comparator<Map.Entry<String, Integer>> {
+
+    private static final class WordCountComparator implements Comparator<Map.Entry<String, Integer>> {
     @Override
     public int compare(Map.Entry<String, Integer> a, Map.Entry<String, Integer> b) {
       if (!a.getValue().equals(b.getValue())) {

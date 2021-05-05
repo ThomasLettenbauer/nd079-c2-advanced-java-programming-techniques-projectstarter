@@ -3,6 +3,7 @@ package com.udacity.webcrawler;
 import com.udacity.webcrawler.json.CrawlResult;
 import com.udacity.webcrawler.profiler.Profiled;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ public interface WebCrawler {
    * @return the {@link CrawlResult} of the crawl.
    */
   @Profiled
-  CrawlResult crawl(List<String> startingUrls);
+  CrawlResult crawl(List<String> startingUrls) throws IOException;
 
   /**
    * Returns the maximum amount of parallelism (number of CPU cores) supported by this web crawler.

@@ -8,6 +8,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import javax.inject.Inject;
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -80,7 +81,7 @@ public final class WebCrawlerTest {
 
   @ParameterizedTest
   @MethodSource("provideTestParameters")
-  public void zeroMaxDepth(Class<?> crawlerClass) {
+  public void zeroMaxDepth(Class<?> crawlerClass) throws IOException {
     CrawlerConfiguration config =
         new CrawlerConfiguration.Builder()
             .setImplementationOverride(crawlerClass.getName())
@@ -100,7 +101,7 @@ public final class WebCrawlerTest {
 
   @ParameterizedTest
   @MethodSource("provideTestParameters")
-  public void noStartPages(Class<?> crawlerClass) {
+  public void noStartPages(Class<?> crawlerClass) throws IOException {
     CrawlerConfiguration config =
         new CrawlerConfiguration.Builder()
             .setImplementationOverride(crawlerClass.getName())
@@ -119,7 +120,7 @@ public final class WebCrawlerTest {
 
   @ParameterizedTest
   @MethodSource("provideTestParameters")
-  public void testBasicCrawl(Class<?> crawlerClass) {
+  public void testBasicCrawl(Class<?> crawlerClass) throws IOException {
     CrawlerConfiguration config =
         new CrawlerConfiguration.Builder()
             .setImplementationOverride(crawlerClass.getName())
@@ -156,7 +157,7 @@ public final class WebCrawlerTest {
 
   @ParameterizedTest
   @MethodSource("provideTestParameters")
-  public void respectsIgnoredUrls(Class<?> crawlerClass) {
+  public void respectsIgnoredUrls(Class<?> crawlerClass) throws IOException {
     CrawlerConfiguration config =
         new CrawlerConfiguration.Builder()
             .setImplementationOverride(crawlerClass.getName())
@@ -184,7 +185,7 @@ public final class WebCrawlerTest {
 
   @ParameterizedTest
   @MethodSource("provideTestParameters")
-  public void respectsIgnoredWords(Class<?> crawlerClass) {
+  public void respectsIgnoredWords(Class<?> crawlerClass) throws IOException {
     CrawlerConfiguration config =
         new CrawlerConfiguration.Builder()
             .setImplementationOverride(crawlerClass.getName())
@@ -211,7 +212,7 @@ public final class WebCrawlerTest {
 
   @ParameterizedTest
   @MethodSource("provideTestParameters")
-  public void respectsMaxDepth(Class<?> crawlerClass) {
+  public void respectsMaxDepth(Class<?> crawlerClass) throws IOException {
     CrawlerConfiguration config =
         new CrawlerConfiguration.Builder()
             .setImplementationOverride(crawlerClass.getName())
@@ -242,7 +243,7 @@ public final class WebCrawlerTest {
 
   @ParameterizedTest
   @MethodSource("provideTestParameters")
-  public void pageNotFoundStillCountsAsVisited(Class<?> crawlerClass) {
+  public void pageNotFoundStillCountsAsVisited(Class<?> crawlerClass) throws IOException {
     CrawlerConfiguration config =
         new CrawlerConfiguration.Builder()
             .setImplementationOverride(crawlerClass.getName())
@@ -273,7 +274,7 @@ public final class WebCrawlerTest {
 
   @ParameterizedTest
   @MethodSource("provideTestParameters")
-  public void infiniteLoop(Class<?> crawlerClass) {
+  public void infiniteLoop(Class<?> crawlerClass) throws IOException {
     CrawlerConfiguration config =
         new CrawlerConfiguration.Builder()
             .setImplementationOverride(crawlerClass.getName())
@@ -299,7 +300,7 @@ public final class WebCrawlerTest {
 
   @ParameterizedTest
   @MethodSource("provideTestParameters")
-  public void multipleStartingUrls(Class<?> crawlerClass) {
+  public void multipleStartingUrls(Class<?> crawlerClass) throws IOException {
     CrawlerConfiguration config =
         new CrawlerConfiguration.Builder()
             .setImplementationOverride(crawlerClass.getName())
